@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Court;
 use Illuminate\Http\Request;
 
 class SadyController extends Controller
@@ -23,7 +24,7 @@ class SadyController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -34,7 +35,10 @@ class SadyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $this->valideAttributes($request);
+
+        Court::create($validatedData);
+
     }
 
     /**
@@ -68,7 +72,12 @@ class SadyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $this->valideAttributes($request);
+
+        $court = Court::find($id);
+        $court->update($validatedData);
+
+
     }
 
     /**
@@ -80,5 +89,19 @@ class SadyController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function valideAttributes(Request $request): array
+    {
+        $validatedData = $this->validate($request, [
+            'nazwa_sadu' => 'required',
+            'kod_sadu' => 'required'
+        ]);
+        return $validatedData;
     }
 }

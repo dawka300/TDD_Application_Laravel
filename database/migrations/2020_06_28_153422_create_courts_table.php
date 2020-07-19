@@ -19,7 +19,7 @@ class CreateCourtsTable extends Migration
             $table->string('apelacja', 100)->nullable();
             $table->string('okreg', 100)->nullable();
             $table->string('kod_sadu', 50);
-            $table->string('informacje_dodatkowe');
+            $table->string('informacje_dodatkowe')->nullable();
             $table->timestamps();
         });
     }
